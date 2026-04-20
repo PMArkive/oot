@@ -76,10 +76,10 @@ jobs:
       - name: Download patches
         uses: actions/download-artifact@v8
         with:
-          pattern: bss/*
+          pattern: fix_bss_*.patch
 
       - name: Merge patches
         run: python3 .github/scripts/merge_patches.py
 
       - name: Show patch
-        run: cat bss/merged.patch >> $GITHUB_STEP_SUMMARY
+        run: cat fix_bss_merged.patch >> $GITHUB_STEP_SUMMARY

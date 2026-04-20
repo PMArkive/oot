@@ -16,5 +16,5 @@ runs:
     - name: Upload patch
       uses: actions/upload-artifact@v7
       with:
-        name: fix-bss/${{ inputs.version }}.patch
+        name: fix_bss_${{ inputs.version }}.patch
         path: ${{ inputs.version }}.patch
