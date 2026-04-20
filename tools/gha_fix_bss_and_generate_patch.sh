@@ -5,7 +5,7 @@ echo "Build failed, attempting to fix BSS ordering..."
 
 .venv/bin/python3 tools/fix_bss.py -v ${VERSION}
 
-echo $pwd
+pwd
 git status
 git diff
 
