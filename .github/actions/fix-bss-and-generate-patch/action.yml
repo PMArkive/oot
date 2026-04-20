@@ -6,9 +6,11 @@ runs:
   using: composite
   steps:
     - name: Fix BSS
+      shell: sh
       run: .venv/bin/python3 tools/fix_bss.py -v ${{ inputs.version }}
 
     - name: Generate patch
+      shell: sh
       run: git diff > ${{ inputs.version }}.patch
 
     - name: Upload patch
