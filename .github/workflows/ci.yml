@@ -68,7 +68,7 @@ jobs:
   merge_bss_fixes:
     runs-on: ubuntu-latest
     needs: [build_repo]
-    if: !cancelled()  # Run even if build_repo fails
+    if: '!cancelled()'  # Run even if build_repo fails
     steps:
       - name: Download patches
         uses: actions/download-artifact@v8
