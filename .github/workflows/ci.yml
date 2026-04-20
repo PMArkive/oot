@@ -66,6 +66,7 @@ jobs:
           path: build/${{ matrix.version }}/oot-${{ matrix.version }}.map
 
   merge_bss_fixes:
+    name: Merge BSS fixes
     runs-on: ubuntu-latest
     needs: [build_repo]
     if: '!cancelled()'  # Run even if build_repo fails
@@ -82,4 +83,7 @@ jobs:
         run: python3 .github/scripts/merge_patches.py
 
       - name: Show patch
-        run: cat fix_bss_merged.patch >> $GITHUB_STEP_SUMMARY
+        run: |
+          echo ``` >> $GITHUB_STEP_SUMMARY
+          cat fix_bss_merged.patch >> $GITHUB_STEP_SUMMARY
+          echo ``` >> $GITHUB_STEP_SUMMARY
