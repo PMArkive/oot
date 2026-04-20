@@ -73,6 +73,9 @@ jobs:
     needs: [build_repo]
     if: '!cancelled()'  # Run even if build_repo fails
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
       - name: Download patches
         uses: actions/download-artifact@v8
         with:
