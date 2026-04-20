@@ -50,10 +50,33 @@ jobs:
         run: make -j $(nproc) VERSION=${{ matrix.version }} setup
 
       - name: Build ${{ matrix.version }}
-        run: make -j $(nproc) VERSION=${{ matrix.version }} || VERSION=${{ matrix.version }} tools/gha_fix_bss_and_generate_patch.sh
+        id: build
+        run: make -j $(nproc) VERSION=${{ matrix.version }}
+
+      - name: Fix BSS and generate patch
+        if: steps.build.outcome == 'failure'
+        uses: .github/actions/fix-bss-and-generate-patch
+        with:
+          version: ${{ matrix.version }}
 
       - name: Upload map
         uses: actions/upload-artifact@v6
         with:
           name: oot-${{ matrix.version }}.map
           path: build/${{ matrix.version }}/oot-${{ matrix.version }}.map
+
+  merge_bss_fixes:
+    runs-on: ubuntu-latest
+    needs: [build_repo]
+    if: !cancelled()  # Run even if build_repo fails
+    steps:
+      - name: Download patches
+        uses: actions/download-artifact@v8
+        with:
+          pattern: bss/*
+
+      - name: Merge patches
+        run: python3 .github/scripts/merge_patches.py
+
+      - name: Show patch
+        run: cat bss/merged.patch >> $GITHUB_STEP_SUMMARY
