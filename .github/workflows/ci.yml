@@ -47,7 +47,7 @@ jobs:
         run: make -j $(nproc) VERSION=${{ matrix.version }} setup
 
       - name: Build ${{ matrix.version }}
-        run: make -j $(nproc) VERSION=${{ matrix.version }} || (VERSION=${{ matrix.version }} tools/gha_fix_bss_and_generate_patch.sh >> $GITHUB_STEP_SUMMARY)
+        run: make -j $(nproc) VERSION=${{ matrix.version }} || VERSION=${{ matrix.version }} tools/gha_fix_bss_and_generate_patch.sh
 
       - name: Upload map
         uses: actions/upload-artifact@v6
