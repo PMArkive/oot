@@ -79,11 +79,11 @@ jobs:
         with:
           pattern: fix_bss_*.patch
 
-      - name: Merge patches
-        run: python3 .github/scripts/merge_patches.py
+      - name: Apply patches
+        run: python3 .github/scripts/apply_fix_bss_patches.py
 
       - name: Show patch
         run: |
           echo ``` >> $GITHUB_STEP_SUMMARY
-          cat fix_bss_merged.patch >> $GITHUB_STEP_SUMMARY
+          git diff >> $GITHUB_STEP_SUMMARY
           echo ``` >> $GITHUB_STEP_SUMMARY
