@@ -11,10 +11,10 @@ runs:
 
     - name: Generate patch
       shell: sh
-      run: git diff > ${{ inputs.version }}.patch
+      run: git diff > fix_bss_${{ inputs.version }}.patch
 
     - name: Upload patch
       uses: actions/upload-artifact@v7
       with:
         name: fix_bss_${{ inputs.version }}.patch
-        path: ${{ inputs.version }}.patch
+        path: fix_bss_${{ inputs.version }}.patch

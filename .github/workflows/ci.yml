@@ -78,6 +78,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           pattern: fix_bss_*.patch
+          merge-multiple: true
 
       - name: Apply patches
         run: python3 .github/scripts/apply_fix_bss_patches.py
