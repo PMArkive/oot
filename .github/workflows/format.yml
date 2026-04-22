@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Check format ${{ matrix.version }}
+    name: Check format
     runs-on: ubuntu-latest
 
     steps:
