@@ -93,8 +93,7 @@ for p in Path(".").glob("fix_bss_*.patch"):
     version = p.name.removeprefix("fix_bss_").removesuffix(".patch")
     subprocess.check_call(["git", "apply", str(p)])
     touched_files = subprocess.check_output(
-        # TODO remove src once the script is finalized
-        "git diff --name-only src".split(),
+        "git diff --name-only".split(),
         text=True,
     ).splitlines()
     for file in touched_files:
@@ -103,8 +102,7 @@ for p in Path(".").glob("fix_bss_*.patch"):
         increment_block_numbers_by_version_by_file.setdefault(file_p, {})[
             version
         ] = increment_block_numbers
-    # TODO change src to . once the script is finalized
-    subprocess.check_call("git checkout -- src".split())
+    subprocess.check_call("git checkout -- .".split())
 
 
 for (
